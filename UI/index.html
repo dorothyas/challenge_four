@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Sign Up</title>
+    <title>Home</title>
     <link rel="stylesheet" href="css/main.css">
 </head>
 <body>
@@ -13,7 +13,7 @@
             <a href="index.html">Send_IT</a>
         </div>
         <div class = nav-right>
-            <a href="index.html">Sign in</a>
+            <a href="signup.html">Sign up</a>
         </div>
     </nav>
     <div class="body">
@@ -22,20 +22,20 @@
             <p>Send_IT is a courier service that helps users deliver parcels to different destinations.<br> SendIT provides courier quotes based on weight categories</p>
             <h3>Let's get started!</h3>
         </div>
-        <div class ="signup-form"> 
-            <h4>Registration Form</h4>          
-            <form action="index.html" id='register-form' method="POST">
+        <div class ="signin-form">           
+            <form action="order_delivery.html" id ='register-form' method="POST">
+                <h4>Sign In</h4>
                 <div class="field">
-                    <input type="text" id="user_name" placeholder=" Name e.g dorothyas" required><br>
-                    <input type="email" id="user_email" placeholder="Email e.g dorothy@example.com" required><br>
+                    <input type="text" id="user_name" placeholder="user_name" required><br>
                     <input type="password" id="user_password" placeholder="Password" required><br>
                 </div>
                 <div>
-                    <button onclick="RegisterUser()">Sign Up</button>
-                </div>
+                    <button type="submit" onclick="loginUser()">Log In</button>
+                    <!-- <button type="submit" id="admin-login"><a href="admin.html"></a>Log In as Admin</a></button>   -->
+                </div> 
             </form>
-        </div>
+        </div>      
     </div>
-    <script src="js/users.js></script>
+    <script src="js/users.js"></script>
 </body>
 </html>
