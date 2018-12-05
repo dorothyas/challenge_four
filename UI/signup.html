@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Sign Up</title>
+    <link rel="stylesheet" href="css/main.css">
+</head>
+<body>
+    <nav class="header">
+        <div class="logo">
+            <a href="index.html">Send_IT</a>
+        </div>
+        <div class = nav-right>
+            <a href="index.html">Sign in</a>
+        </div>
+    </nav>
+    <div class="body">
+        <div>
+            <h2>Welcome to Send_IT</h2>
+            <p>Send_IT is a courier service that helps users deliver parcels to different destinations.<br> SendIT provides courier quotes based on weight categories</p>
+            <h3>Let's get started!</h3>
+        </div>
+        <div class ="signup-form"> 
+            <h4>Registration Form</h4>          
+            <form action="index.html" id='register-form' method="POST">
+                <div class="field">
+                    <input type="text" id="user_name" placeholder=" Name e.g dorothyas" required><br>
+                    <input type="email" id="user_email" placeholder="Email e.g dorothy@example.com" required><br>
+                    <input type="password" id="user_password" placeholder="Password" required><br>
+                </div>
+                <div>
+                    <button onclick="RegisterUser()">Sign Up</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <script src="js/users.js></script>
+</body>
+</html>
