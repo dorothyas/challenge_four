@@ -14,7 +14,6 @@ You will need the following:
 User Interface: The UI for this project is deployed on heroku on the url: 
 
 ## Project Functionality:
-Interface
 
 - User and admin can signup and login to the app.
 - User can make a parcel order.
@@ -29,5 +28,5 @@ Interface
 - ES6 (javascript)
 
 ## Author: 
-• Dorothy Asiimwe
-• Github: https://github.com/dorothyas
+- Dorothy Asiimwe
+- Github: https://github.com/dorothyas
