@@ -2,7 +2,7 @@
 function getOrders(){
     token = localStorage.getItem('token')
 
-    fetch('http://127.0.0.1:5000/api/v1/parcels', {
+    fetch('https://stargal-dorothy.herokuapp.com/api/v1/parcels', {
         
         method: 'GET',
         headers: {
@@ -33,7 +33,7 @@ function getOrders(){
         for(i = 0; i < data["Orders"].length; i++){
 
             table += 
-            "<tr><td>"+data["Orders"][i]["order_id"]
+            "<tr><td><a href= 'order_details.html?order_id="+data["Orders"][i]["order_id"]+"'> "+data["Orders"][i]["order_id"]    
             +"</td><td>"+data["Orders"][i]["parcel_type"]
             +"</td><td>"+data["Orders"][i]["weight"]
             +"</td><td>"+data["Orders"][i]["receiver"]
@@ -45,47 +45,107 @@ function getOrders(){
             +"</td></tr>";
             
         }
-    
-        document.getElementById('parcels_table').innerHTML = table+"</table>";
+        document.getElementById('parcels_table').innerHTML = table;
     
         });
         
 }
 
-function updateStatus(){
-    token = localStorage.getItem('token')
-    let order_id = document.getElementById('order_id').value;
-    console.log(order_id)
-     
-    let status = document.getElementById('action');
-    for (let i = 0; i<status.length; i++){
-        status[i].addEventListener('click', function(){order_status = status[i].value;})
-    }
-    // console.log(order_status)
-    data = {
-        order_id: order_id,
-        order_status: status
-    }
-    console.log(data)
-    fetch('http://127.0.0.1:5000/api/v1/parcels/order_id/status', {
-        method: 'PUT',
-        headers: {
-        'Accept': 'application/json, text/plain, */*',
-        'Content-type':'application/json',
-        'Authorization': `Bearer ${token}`,
-        'Access-Control-Allow-Origin': '*'
-        },
-        body: JSON.stringify(data)
-})
+if(/order_details.html/.test(window.location.href)){
 
-    .then((res) => res.json())
-    .then(response => {
-        console.log(response);
-        if (response.message === 'status has been updated'){
-            alert('status has been updated');
-            window.location.replace('admin.html');
-        } else {
-            alert(response.message);
-        }
+    let order_url = window.location.href
+    let url = new URL(order_url)
+    let order_id = url.searchParams.get("order_id")
+      console.log(order_id);
+  
+    fetch("https://stargal-dorothy.herokuapp.com/api/v1/parcels/"+order_id,  {
+
+            method: 'GET',
+            headers: {
+            'Accept': 'application/json, text/plain, */*',
+            'Content-type':'application/json',
+            
+            'Authorization': `Bearer ${localStorage.getItem('token')}`,
+            'Access-Control-Allow-Origin': '*'
+            }})
+                .then((res) => res.json())
+                .then(function(data){
+                    alert(JSON.stringify(data));
+
+                let i = 0;
+
+                let table = '<table border="2px">'+
+                                '<tr>'+
+                                '<th>order_id</th>'+
+                                '<th>parcel_type</th>'+
+                                '<th>weight</th>'+
+                                '<th>receiver</th>'+
+                                '<th>pick_up</th>'+
+                                '<th>destination</th>'+
+                                '<th>status</th>'+
+                                '<th>present_location</th>'+
+                                '<th>user_id</th>'+
+                                ' </tr>';
+                     
+  
+                            table += 
+                            "<tr><td>"+data["Orders"][0]["order_id"]
+                            +"</td><td>"+data["Orders"][0]["parcel_type"]
+                            +"</td><td>"+data["Orders"][0]["weight"]
+                            +"</td><td>"+data["Orders"][0]["receiver"]
+                            +"</td><td>"+data["Orders"][0]["pick_up"]
+                            +"</td><td>"+data["Orders"][0]["destination"]
+                            +"</td><td> <a href ='#' onclick='updateStatus()' id='stat'>"+data["Orders"][0]["status"]
+                            +"</td><td>"+data["Orders"][0]["present_location"]
+                            +"</td><td>"+data["Orders"][0]["user_id"]
+                            +"</td></tr>";
+                        
+                   
+                       document.getElementById('parcels_table').innerHTML = table;
+                       alert(table);
+                      
+                       });
+                       
+  
+  }
+
+function updateStatus(){
+let status = window.prompt("Update Status")
+console.log(status)
+
+let parcel_url = window.location.href
+let url = new URL(parcel_url)
+let order_id = url.searchParams.get("order_id")
+    console.log(order_id);
+    
+const data = {"status": status};
+
+
+    fetch('https://stargal-dorothy.herokuapp.com/api/v1/parcelsn /'+order_id+'/status', {
+    method: 'PUT',
+    headers: {
+        'Accept': 'application/json',
+        'Content-type': 'application/json',
+        'Authorization': `Bearer ${localStorage.getItem('token')}`,
+    },
+    cache: 'no-cache',
+    body: JSON.stringify(data)
+
     })
-}
+    .then((res) => res.json())
+    .then(result => {
+        alert(JSON.stringify(result));
+        if(result.status === 'message'){
+            document.getElementById('stat').innerHTML = status
+            alert(result.message)
+
+        }
+        else{
+            alert(result.message)
+        }
+        
+    })
+
+
+    }
+
