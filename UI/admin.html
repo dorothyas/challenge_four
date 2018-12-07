@@ -20,13 +20,13 @@
         <h3>User Orders</h3>
         <button type="submit" onclick="getOrders()">Orders</a></button><br>
         <input type="number" id="order_id" placeholder="Enter order Id">
-        <select id="action" name="Action Required">
+        <select class="stat" name="Action Required">
                 <option value="one">In Transit</option>
                 <option value="two">Delivered</option>
             </select>
         <button onclick="updateStatus()">Update</a></button>
+        <table id="parcel_table " ></table>
         <table class="admin-table" id="parcels_table">
-
         </table>
     </div>
     <script src="js/admin.js"></script>
