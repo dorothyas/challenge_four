@@ -22,9 +22,8 @@ function createOrder(){
     })
         .then((res) => res.json())
         .then(result => { 
-            // console.log(result);
             if (result.message === 'Order added'){
-                window.location.href = 'user_profile.html';
+                window.location.href = 'index.html';
             } else {
                 alert(result.message);
             }
