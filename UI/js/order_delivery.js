@@ -7,7 +7,7 @@ function createOrder(){
     let destination = document.getElementById('destination').value;
     token = localStorage.getItem('token')
 
-    const data = {"parcel_type":parcel_type, "weight":weight, "receiver":receiver, "pick_up":pick_up, "destination":destination};
+    const result = {"parcel_type":parcel_type, "weight":weight, "receiver":receiver, "pick_up":pick_up, "destination":destination};
 
     fetch('https://stargal-dorothy.herokuapp.com/api/v1/parcels', {
         method: "POST",
@@ -18,17 +18,20 @@ function createOrder(){
         },
        
         cache: 'no-cache',
-        body: JSON.stringify(data)
+        body: JSON.stringify(result)
     })
         .then((res) => res.json())
         .then(result => { 
+            alert(JSON.stringify(result))
+
             if (result.message === 'Order added'){
-                window.location.href = 'index.html';
+                window.location.href = 'user_profile.html';
+                alert(result.message);    
             } else {
-                alert(result.message);
+                alert(message);
             }
             
         })
         
 }
- 
+

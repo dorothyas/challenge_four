@@ -96,7 +96,7 @@ if(/order_details.html/.test(window.location.href)){
                             +"</td><td>"+data["Orders"][0]["pick_up"]
                             +"</td><td>"+data["Orders"][0]["destination"]
                             +"</td><td> <a href ='#' onclick='updateStatus()' id='stat'>"+data["Orders"][0]["status"]
-                            +"</td><td>"+data["Orders"][0]["present_location"]
+                            +"</td><td><a href = '#' onclick= 'updatePresentlocation()' id= 'loc'>"+data["Orders"][0]["present_location"]
                             +"</td><td>"+data["Orders"][0]["user_id"]
                             +"</td></tr>";
                         
@@ -121,7 +121,7 @@ let order_id = url.searchParams.get("order_id")
 const data = {"status": status};
 
 
-    fetch('https://stargal-dorothy.herokuapp.com/api/v1/parcelsn /'+order_id+'/status', {
+    fetch('https://stargal-dorothy.herokuapp.com/api/v1/parcels/'+order_id+'/status', {
     method: 'PUT',
     headers: {
         'Accept': 'application/json',
@@ -149,3 +149,41 @@ const data = {"status": status};
 
     }
 
+function updatePresentlocation(){
+    let present_location = window.prompt("Update Present Location")
+    console.log(present_location)
+    
+    let parcel_url = window.location.href
+    let url = new URL(parcel_url)
+    let order_id = url.searchParams.get("order_id")
+        console.log(order_id);
+        
+    const data = {"present_location": present_location};
+    
+    
+        fetch('https://stargal-dorothy.herokuapp.com/api/v1/parcels/'+order_id+'/presentlocation', {
+        method: 'PUT',
+        headers: {
+            'Accept': 'application/json',
+            'Content-type': 'application/json',
+            'Authorization': `Bearer ${localStorage.getItem('token')}`,
+        },
+        cache: 'no-cache',
+        body: JSON.stringify(data)
+    
+        })
+        .then((res) => res.json())
+        .then(result => {
+            alert(JSON.stringify(result));
+            if(result.status === 'Message'){
+                document.getElementById('loc').innerHTML = present_location
+                alert(result.message)
+    
+            }
+            else{
+                alert(result.message)
+            }
+            
+        })
+    
+        }
