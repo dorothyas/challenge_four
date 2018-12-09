@@ -10,10 +10,10 @@
 <body>
     <nav class="header">
         <div class="logo">
-            <a href="index.html">Send_IT</a>
+            <a href="../index.html">Send_IT</a>
         </div>
         <div class = nav-right>
-            <a href="index.html">Sign in</a>
+            <a href="signup.html">Sign in</a>
         </div>
     </nav>
     <div class="body">
@@ -24,18 +24,19 @@
         </div>
         <div class ="signup-form"> 
             <h4>Registration Form</h4>          
-            <form action="index.html" id='register-form' method="POST">
+            <form action="login.html" id='register-form' method="POST">
                 <div class="field">
                     <input type="text" id="user_name" placeholder=" Name e.g dorothyas" required><br>
                     <input type="email" id="user_email" placeholder="Email e.g dorothy@example.com" required><br>
                     <input type="password" id="user_password" placeholder="Password" required><br>
                 </div>
                 <div>
-                    <button onclick="RegisterUser()">Sign Up</button>
+                    <button onclick="registerUser()">Sign Up</button>
                 </div>
             </form>
         </div>
     </div>
-    <script src="js/users.js></script>
+    <script src="js/users.js"> </script>
+    <!-- <script src="js/user.js"></script>  -->
 </body>
 </html>
