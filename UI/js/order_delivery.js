@@ -9,7 +9,7 @@ function createOrder(){
 
     const result = {"parcel_type":parcel_type, "weight":weight, "receiver":receiver, "pick_up":pick_up, "destination":destination};
 
-    fetch('https://stargal-dorothy.herokuapp.com/api/v1/parcels', {
+    fetch('http://127.0.0.1:5000/api/v1/parcels', {
         method: "POST",
         headers: {
             'Accept': 'application/json',

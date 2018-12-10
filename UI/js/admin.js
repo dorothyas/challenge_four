@@ -2,7 +2,7 @@
 function getOrders(){
     token = localStorage.getItem('token')
 
-    fetch('https://stargal-dorothy.herokuapp.com/api/v1/parcels', {
+    fetch('http://127.0.0.1:5000/api/v1/parcels', {
         
         method: 'GET',
         headers: {
@@ -58,7 +58,7 @@ if(/order_details.html/.test(window.location.href)){
     let order_id = url.searchParams.get("order_id")
       console.log(order_id);
   
-    fetch("https://stargal-dorothy.herokuapp.com/api/v1/parcels/"+order_id,  {
+    fetch("http://127.0.0.1:5000/api/v1/parcels/"+order_id,  {
 
             method: 'GET',
             headers: {
@@ -121,7 +121,7 @@ let order_id = url.searchParams.get("order_id")
 const data = {"status": status};
 
 
-    fetch('https://stargal-dorothy.herokuapp.com/api/v1/parcels/'+order_id+'/status', {
+    fetch('http://127.0.0.1:5000/api/v1/parcels/'+order_id+'/status', {
     method: 'PUT',
     headers: {
         'Accept': 'application/json',
@@ -161,7 +161,7 @@ function updatePresentlocation(){
     const data = {"present_location": present_location};
     
     
-        fetch('https://stargal-dorothy.herokuapp.com/api/v1/parcels/'+order_id+'/presentlocation', {
+        fetch('http://127.0.0.1:5000/api/v1/parcels/'+order_id+'/presentlocation', {
         method: 'PUT',
         headers: {
             'Accept': 'application/json',

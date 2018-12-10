@@ -5,7 +5,7 @@ function registerUser(){
     let user_password = document.getElementById('user_password').value;
     const data = {"user_name":user_name, "user_email":user_email, "user_password":user_password};
 
-    fetch('https://stargal-dorothy.herokuapp.com/api/v1/auth/signup', {
+    fetch('http://127.0.0.1:5000/api/v1/auth/signup', {
         method: 'POST',
         headers: {
             'Accept': 'application/json',
@@ -37,7 +37,7 @@ function loginUser(){
     let user_password = document.getElementById('user_password').value;
     const data = {"user_name":user_name, "user_password":user_password};
 
-    fetch('https://stargal-dorothy.herokuapp.com/api/v1/auth/login', {
+    fetch('http://127.0.0.1:5000/api/v1/auth/login', {
         method: "POST",
         headers: {
             'Accept': 'application/json',
@@ -53,13 +53,14 @@ function loginUser(){
             if(result.message === 'User logged in'){
                 token = result.access_token;
                 localStorage.setItem('token', token);
-
+                alert(`Welcome ${user_name}`);
+                
                 if(user_name == "dorothy"){
                     window.location.replace('admin.html');
                 } else {
                     window.location.href = 'order_delivery.html';
                 }
-                alert(`Welcome ${user_name}`);
+
             } else {
                 alert (`Invalid Username or password`);
                 window.location.href = 'login.html';
@@ -77,7 +78,7 @@ if(/user_profile.html/.test(window.location.href)){
 
     token = localStorage.getItem('token')
 
-    fetch('https://stargal-dorothy.herokuapp.com/api/v1/users/'+user_id+'/parcels', {
+    fetch('http://127.0.0.1:5000/api/v1/users/'+user_id+'/parcels', {
         
         method: 'GET',
         headers: {
@@ -140,7 +141,7 @@ if(/user_profile.html/.test(window.location.href)){
         const data = {"destination": destination};
         
         
-            fetch('https://stargal-dorothy.herokuapp.com/api/v1/parcels/'+order_id+'/destination', {
+            fetch('http://127.0.0.1:5000/api/v1/parcels/'+order_id+'/destination', {
             method: 'PUT',
             headers: {
                 'Accept': 'application/json',
@@ -166,9 +167,7 @@ if(/user_profile.html/.test(window.location.href)){
         
         
             }
-        // }
-
-    // if(/user_profile.html/.test(window.location.href)){
+      
     function cancelStatus(){
 
         let status = window.prompt("Cancel Order ?")
@@ -182,7 +181,7 @@ if(/user_profile.html/.test(window.location.href)){
         const data = {"status": status};
         
         
-        fetch('https://stargal-dorothy.herokuapp.com/api/v1/parcels/'+order_id+'/cancel', {
+        fetch('http://127.0.0.1:5000/api/v1/parcels/'+order_id+'/cancel', {
         method: 'PUT',
         headers: {
             'Accept': 'application/json',
