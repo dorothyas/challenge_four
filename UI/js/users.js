@@ -20,7 +20,7 @@ function registerUser(){
         .then(result => {
             alert(JSON.stringify(result))
             if(result.message === 'registered'){
-               alert(result.message)
+            //    alert(result.message)
                window.location.href = 'login.html';
             }
             else{
@@ -69,16 +69,14 @@ function loginUser(){
         })
         
 }
+
+const table = document.getElementById('users_table');
+const url = 'http://127.0.0.1:5000/api/v1/users/parcels';
+token = localStorage.getItem('token');
+
 if(/user_profile.html/.test(window.location.href)){
 
-    let order_url = window.location.href
-    let url = new URL(order_url)
-    let user_id = url.searchParams.get("user_id")
-      console.log(user_id);
-
-    token = localStorage.getItem('token')
-
-    fetch('http://127.0.0.1:5000/api/v1/users/'+user_id+'/parcels', {
+    fetch(url, {
         
         method: 'GET',
         headers: {
@@ -89,8 +87,9 @@ if(/user_profile.html/.test(window.location.href)){
             }
         })
         .then((res) => res.json())
+
         .then(function(data){
-                alert(JSON.stringify(data))
+                // alert(JSON.stringify(data))
         let i = 0;
 
         let table = '<table border="2px">'+
@@ -109,24 +108,81 @@ if(/user_profile.html/.test(window.location.href)){
         for(i = 0; i < data["Orders"].length; i++){
 
             table += 
-            "<tr><td>"+data["Orders"][i]["order_id"]   
+            "<tr><td><a href='order_details.html?order_id="+data["Orders"][i]["order_id"]+"'> "+data["Orders"][i]["order_id"]    
             +"</td><td>"+data["Orders"][i]["parcel_type"]
             +"</td><td>"+data["Orders"][i]["weight"]
             +"</td><td>"+data["Orders"][i]["receiver"]
             +"</td><td>"+data["Orders"][i]["pick_up"]
             +"</td><td>"+data["Orders"][i]["destination"]
-            +"</td><td>"+data["Orders"][i]["status"]
+            "<tr><td><a href='user_update.html?order_id="+data["Orders"][i]["order_id"]+"'> "+data["Orders"][i]["order_id"]    
             +"</td><td>"+data["Orders"][i]["present_location"]
-            +"</td><td><a href='user_profile.html?user_id="+data["Orders"][i]["user_id"]+"'>"+data["Orders"][i]["user+id"]
+            +"</td><td>"+data["Orders"][i]["user_id"]
             +"</td></tr>";
             
         }
-        document.getElementById('users_table').innerHTML = table;
+        document.getElementById('parcels_table').innerHTML = table;
     
         });
         
 }
 
+if(/user_profile.html/.test(window.location.href)){
+
+    let order_url = window.location.href
+    let url = new URL(order_url)
+    let order_id = url.searchParams.get("order_id")
+      console.log(order_id);
+  
+    fetch("http://127.0.0.1:5000/api/v1/parcels/"+order_id,  {
+
+            method: 'GET',
+            headers: {
+            'Accept': 'application/json, text/plain, */*',
+            'Content-type':'application/json',
+            
+            'Authorization': `Bearer ${localStorage.getItem('token')}`,
+            'Access-Control-Allow-Origin': '*'
+            }})
+                .then((res) => res.json())
+                .then(function(data){
+                    alert(JSON.stringify(data));
+
+                let i = 0;
+
+                let table = '<table border="2px">'+
+                                '<tr>'+
+                                '<th>order_id</th>'+
+                                '<th>parcel_type</th>'+
+                                '<th>weight</th>'+
+                                '<th>receiver</th>'+
+                                '<th>pick_up</th>'+
+                                '<th>destination</th>'+
+                                '<th>status</th>'+
+                                '<th>present_location</th>'+
+                                '<th>user_id</th>'+
+                                ' </tr>';
+                     
+  
+                            table += 
+                            "<tr><td>"+data["Orders"][0]["order_id"]
+                            +"</td><td>"+data["Orders"][0]["parcel_type"]
+                            +"</td><td>"+data["Orders"][0]["weight"]
+                            +"</td><td>"+data["Orders"][0]["receiver"]
+                            +"</td><td>"+data["Orders"][0]["pick_up"]
+                            +"</td><td>"+data["Orders"][0]["destination"]
+                            +"</td><td> <a href ='#' onclick='updateStatus()' id='stat'>"+data["Orders"][0]["status"]
+                            +"</td><td><a href = '#' onclick= 'updatePresentlocation()' id= 'loc'>"+data["Orders"][0]["present_location"]
+                            +"</td><td>"+data["Orders"][0]["user_id"]
+                            +"</td></tr>";
+                        
+                   
+                       document.getElementById('parcel_table').innerHTML = table;
+        
+                      
+                       });
+                       
+  
+  }
 // if(/user_profile.html/.test(window.location.href)){
 
     function updateDestination(){

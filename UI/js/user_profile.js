@@ -1,9 +1,13 @@
 
-function getOrders(){
-    token = localStorage.getItem('token')
+document.getElementById('userOrders').addEventListener('click', userOrders);
 
-    fetch('http://127.0.0.1:5000/api/v1/parcels', {
-        
+
+function userOrders(){
+token = localStorage.getItem('token')
+const url = 'http://127.0.0.1:5000/api/v1/users/parcels'
+
+    fetch(url, {
+            
         method: 'GET',
         headers: {
         'Accept': 'application/json, text/plain, */*',
@@ -14,9 +18,8 @@ function getOrders(){
         })
         .then((res) => res.json())
         .then(function(data){
-                // alert(JSON.stringify(data))
+            // alert(JSON.stringify(data));   
         let i = 0;
-
         let table = '<table border="2px">'+
                     '<tr>'+
                     '<th>order_id</th>'+
@@ -28,30 +31,28 @@ function getOrders(){
                     '<th>status</th>'+
                     '<th>present_location</th>'+
                     '<th>user_id</th>'+
-                    ' </tr>'; 
-                    
+                    ' </tr>';
         for(i = 0; i < data["Orders"].length; i++){
 
-            table += 
-            "<tr><td><a href= 'order_details.html?order_id="+data["Orders"][i]["order_id"]+"'> "+data["Orders"][i]["order_id"]    
-            +"</td><td>"+data["Orders"][i]["parcel_type"]
-            +"</td><td>"+data["Orders"][i]["weight"]
-            +"</td><td>"+data["Orders"][i]["receiver"]
-            +"</td><td>"+data["Orders"][i]["pick_up"]
-            +"</td><td>"+data["Orders"][i]["destination"]
-            +"</td><td>"+data["Orders"][i]["status"]
-            +"</td><td>"+data["Orders"][i]["present_location"]
-            +"</td><td>"+data["Orders"][i]["user_id"]
-            +"</td></tr>";
+                table += 
+                "<tr><td><a href='user_update.html?order_id="+data["Orders"][i]["order_id"]+"'> "+data["Orders"][i]["order_id"]       
+                +"</td><td>"+data["Orders"][i]["parcel_type"]
+                +"</td><td>"+data["Orders"][i]["weight"]
+                +"</td><td>"+data["Orders"][i]["receiver"]
+                +"</td><td>"+data["Orders"][i]["pick_up"]
+                +"</td><td>"+data["Orders"][i]["destination"] 
+                +"</td><td>"+data["Orders"][i]["status"]
+                +"</td><td>"+data["Orders"][i]["present_location"]
+                +"</td><td>"+data["Orders"][i]["user_id"]
+                +"</td></tr>";
             
         }
-        document.getElementById('parcels_table').innerHTML = table;
-    
-        });
-        
+        document.getElementById('users_table').innerHTML = table;    
+});
 }
 
-if(/order_details.html/.test(window.location.href)){
+
+if(/user_update.html/.test(window.location.href)){
 
     let order_url = window.location.href
     let url = new URL(order_url)
@@ -109,7 +110,8 @@ if(/order_details.html/.test(window.location.href)){
   
   }
 
-function updateStatus(){
+
+function cancelStatus(){
 let status = window.prompt("Update Status")
 console.log(status)
 
@@ -147,42 +149,42 @@ const data = {"status": status};
 
 
     }
-
-function updatePresentlocation(){
-    let present_location = window.prompt("Update Present Location")
-    console.log(present_location)
-    
-    let parcel_url = window.location.href
-    let url = new URL(parcel_url)
-    let order_id = url.searchParams.get("order_id")
-        console.log(order_id);
+    function updateDestination(){
+        let destination = window.prompt("Update Status")
+        console.log(destination)
         
-    const data = {"present_location": present_location};
-    
-    
-        fetch('http://127.0.0.1:5000/api/v1/parcels/'+order_id+'/presentlocation', {
-        method: 'PUT',
-        headers: {
-            'Accept': 'application/json',
-            'Content-type': 'application/json',
-            'Authorization': `Bearer ${localStorage.getItem('token')}`,
-        },
-        cache: 'no-cache',
-        body: JSON.stringify(data)
-    
-        })
-        .then((res) => res.json())
-        .then(result => {
-            alert(JSON.stringify(result));
-            if(result.status === 'Message'){
-                document.getElementById('loc').innerHTML = present_location
-                alert(result.message)
-    
-            }
-            else{
-                alert(result.message)
-            }
+        let parcel_url = window.location.href
+        let url = new URL(parcel_url)
+        let order_id = url.searchParams.get("order_id")
+            console.log(order_id);
             
-        })
-    
-        }
+        const data = {"destination": destination};
+        
+            fetch('http://127.0.0.1:5000/api/v1/parcels/'+order_id+'/destination', {
+            method: 'PUT',
+            headers: {
+                'Accept': 'application/json',
+                'Content-type': 'application/json',
+                'Authorization': `Bearer ${localStorage.getItem('token')}`,
+            },
+            cache: 'no-cache',
+            body: JSON.stringify(data)
+        
+            })
+            .then((res) => res.json())
+            .then(result => {
+                alert(JSON.stringify(result));
+                if(result.status === 'message'){
+                    document.getElementById('stat').innerHTML = destination
+                    alert(result.message)
+        
+                }
+                else{
+                    alert(result.message)
+                }
+                
+            })
+        
+        
+            }
+        
