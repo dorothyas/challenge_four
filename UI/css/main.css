@@ -4,35 +4,58 @@ a {
 }
 
 nav{
-    background: rgb(243, 183, 183);
+    background: rgba(197, 113, 162, 0.877);
     padding: 10px;
     box-sizing: inherit;
     display: flex;
     justify-content: space-between;
 }
 .logo a {
-    font-family: cursive;
-    font-size: 20px; 
+    font-family: Arial;
+    font-size: 30px; 
 }
 .nav-right{
-    float: right;       
+    float: right; 
+    font-size: 20px;      
 }
 .nav-right a{
     padding-right: 20px;
 }
-.nav-right a:hover {
+nav a:hover {
     color: rgb(16, 31, 241);
+    border-radius: 2px;
+    font-weight: bold;
+    
 }
 
 body {
     margin: 0;
     padding: 0;
-    background-color: rgb(233, 222, 222) 
-  }
+    background-color: rgb(243, 183, 183);
+    /* background: url(../images/parcel3.jpg);
+    background-position: center;
+    background-size: cover; */
+}
 .body{
     text-align: center;
     font-size: 15px;
-    min-height: 40vh;
+    min-height: 30vh;
+}
+.message{
+    width: 1200px;
+    margin-left: 100px;
+    color:  rgb(57, 49, 129) ;
+}
+.message h2{
+    text-align: center;
+    font-size: 40px;
+    margin-top: 30px;
+    margin-left: 70px;
+}
+.message p, h3{
+    text-align: center;
+    font-size: 30px;
+    font-style: italic;
 }
 button{
     font-size: 40px;
@@ -40,6 +63,11 @@ button{
     font-size: 20px;   
 }
 
+button :hover {
+    color: rgb(16, 31, 241);
+    font-weight: bold;
+    
+}
 #login-button  {
     background: rgb(2, 114, 2);
     padding: 10px 20px;
@@ -71,12 +99,12 @@ input {
     margin: 5px;
 }
 .create-button{
-    background: rgb(2, 114, 2);;
+    background: rgb(21, 167, 21);;
     padding: 5px 5px;
     color: rgb(252, 253, 250);
 }
 .cancel-button{
-    background: rgb(211, 4, 4);
+    background: rgb(233, 63, 63);
     padding: 5px 5px;
 }
 .cancel-button a{
@@ -142,5 +170,8 @@ h4{
     margin-left: 20px; 
 }
 .acc-details{
-    margin-left: 20px; 
+    margin-left: 20px;
+    text-align: center;
+    font-size: 30px;
+    font-style: italic; 
 }
