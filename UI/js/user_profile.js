@@ -1,5 +1,5 @@
 
-document.getElementById('userOrders').addEventListener('click', userOrders);
+// document.getElementById('userOrders').addEventListener('click', userOrders);
 
 
 function userOrders(){
@@ -95,9 +95,9 @@ if(/user_update.html/.test(window.location.href)){
                             +"</td><td>"+data["Orders"][0]["weight"]
                             +"</td><td>"+data["Orders"][0]["receiver"]
                             +"</td><td>"+data["Orders"][0]["pick_up"]
-                            +"</td><td>"+data["Orders"][0]["destination"]
-                            +"</td><td><a href ='#' onclick='updateStatus()' id='stat'>"+data["Orders"][0]["status"]
-                            +"</td><td><a href = '#' onclick= 'updatePresentlocation()' id= 'loc'>"+data["Orders"][0]["present_location"]
+                            +"</td><td><a href = '#' onclick= 'updateDestination()' id= 'loc'>"+data["Orders"][0]["destination"]
+                            +"</td><td><a href ='#' onclick='cancelStatus()' id='stat'>"+data["Orders"][0]["status"]
+                            +"</td><td>"+data["Orders"][0]["present_location"]
                             +"</td><td>"+data["Orders"][0]["user_id"]
                             +"</td></tr>";
                         
@@ -146,7 +146,6 @@ const data = {"status": status};
         }
         
     })
-
 
     }
     function updateDestination(){

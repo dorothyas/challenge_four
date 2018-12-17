@@ -14,7 +14,7 @@ function getOrders(){
         })
         .then((res) => res.json())
         .then(function(data){
-                // alert(JSON.stringify(data))
+
         let i = 0;
 
         let table = '<table border="2px">'+
@@ -70,7 +70,7 @@ if(/order_details.html/.test(window.location.href)){
             }})
                 .then((res) => res.json())
                 .then(function(data){
-                    alert(JSON.stringify(data));
+                    // alert(JSON.stringify(data));
 
                 let i = 0;
 
@@ -101,7 +101,7 @@ if(/order_details.html/.test(window.location.href)){
                             +"</td></tr>";
                         
                    
-                       document.getElementById('parcels_table').innerHTML = table;
+                       document.getElementById('parcel_table').innerHTML = table;
         
                       
                        });
@@ -133,7 +133,7 @@ const data = {"status": status};
     })
     .then((res) => res.json())
     .then(result => {
-        alert(JSON.stringify(result));
+        // alert(JSON.stringify(result));
         if(result.status === 'message'){
             document.getElementById('stat').innerHTML = status
             alert(result.message)
@@ -168,7 +168,7 @@ function updatePresentlocation(){
             'Authorization': `Bearer ${localStorage.getItem('token')}`,
         },
         cache: 'no-cache',
-        body: JSON.stringify(data)
+        // body: JSON.stringify(data)
     
         })
         .then((res) => res.json())
