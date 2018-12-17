@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Admin</title>
+    <title>Order Details</title>
     <link rel="stylesheet" href="css/main.css">
 </head>
 <body>
@@ -13,15 +13,19 @@
             <a href="../index.html">Send_IT</a>
         </div>
         <div class = nav-right>
-            <a href="../index.html">Log Out</a>
+            <a href="order_delivery.html">Place Order</a>            
+            <a href="user_profile.html">My Profile</a>
+            <a href="../index.html">Log out</a>
         </div>
     </nav>
     <div class="body">
-        <h3>User Orders</h3>
-        <button type="submit" id="allOrders" onclick="getOrders()">Orders</a></button><br>
-        <table class="admin-table" id="parcels_table">
-        </table>
-    </div>
-    <script src="js/admin.js"></script>
+        <h3>My Orders</h3>
+        <div class="table" id="parcels_table">
+            
+        </div>
+
+
+    </div> 
+    <script src="js/user_profile.js"></script>     
 </body>
 </html>
