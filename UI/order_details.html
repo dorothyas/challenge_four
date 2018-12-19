@@ -10,18 +10,34 @@
 <body>
     <nav class="header">
         <div class="logo">
-            <a href="index.html">Send_IT</a>
+            <a href="../index.html">Send_IT</a>
         </div>
         <div class = nav-right>
-            <a href="index.html">Log out</a>
+            <a href="../index.html">Log out</a>
         </div>
     </nav>
     <div class="body">
         <h3>My Orders</h3>
         <div class="order" id="parcel_table">
-
-
     </div> 
+    <div id="myModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <select class="" id="updateStat">
+                <option value=" ">Choose</option>
+                <option value="in-transit">in-transit</option>
+                <option value="delivered">delivered</option>
+            </select>
+            <button onclick="updateStatus()" id="btn">updateStatus</button>
+        </div>
+    </div>
+    <div id="myNewModal" class="modal" >
+        <div id="modal-content">
+            <span class="close">&times;</span>
+            <input type="text" placeholder=" enter present location" id='updateloc'>
+            <button onclick="updatePresentlocation()" id="btn">Change</button>
+        </div>
+    </div>
     <script src="js/admin.js"></script>     
 </body>
 </html>
