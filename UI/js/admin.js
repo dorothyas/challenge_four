@@ -95,8 +95,8 @@ if(/order_details.html/.test(window.location.href)){
                             +"</td><td>"+data["Orders"][0]["receiver"]
                             +"</td><td>"+data["Orders"][0]["pick_up"]
                             +"</td><td>"+data["Orders"][0]["destination"]
-                            +"</td><td><a href ='#' onclick='updateStatus()' id='stat'>"+data["Orders"][0]["status"]
-                            +"</td><td><a href = '#' onclick= 'updatePresentlocation()' id= 'loc'>"+data["Orders"][0]["present_location"]
+                            +"</td><td><a href ='#' onclick='getModal()' id='stat'>"+data["Orders"][0]["status"]
+                            +"</td><td><a href = '#' onclick= 'makeModal()' id= 'loc'>"+data["Orders"][0]["present_location"]
                             +"</td><td>"+data["Orders"][0]["user_id"]
                             +"</td></tr>";
                         
@@ -106,17 +106,34 @@ if(/order_details.html/.test(window.location.href)){
                       
                        });
                        
-  
-  }
+}
+function getModal(){
+    let modal =document.getElementById('myModal');
+    let btn = document.getElementById("stat");
+    let span = document.getElementsByClassName("close")[0];
+    
+    btn.onclick = function() {
+    modal.style.display = "block";
+    }
+
+    span.onclick = function() {
+    modal.style.display = "none";
+    }
+
+    window.onclick = function(event) {
+    if (event.target == modal) {
+        modal.style.display = "none";
+    }
+    }
+}
 
 function updateStatus(){
-let status = window.prompt("Update Status")
-console.log(status)
+let status = document.getElementById('updateStat').value;
 
 let parcel_url = window.location.href
 let url = new URL(parcel_url)
 let order_id = url.searchParams.get("order_id")
-    console.log(order_id);
+    // console.log(order_id);
     
 const data = {"status": status};
 
@@ -137,6 +154,7 @@ const data = {"status": status};
         if(result.status === 'message'){
             document.getElementById('stat').innerHTML = status
             alert(result.message)
+            location.reload();
 
         }
         else{
@@ -145,17 +163,34 @@ const data = {"status": status};
         
     })
 
+}
 
+function makeModal(){
+    let newModal =document.getElementById('myNewModal');
+    let bttn = document.getElementById("loc");
+    let span = document.getElementsByClassName("close")[0];
+
+
+    bttn.onclick = function() {
+    newModal.style.display = "block";
     }
+    span.onclick = function() {
+    newModal.style.display = "none";
+}
+
+    window.onclick = function(event) {
+    if (event.target == newModal) {
+        newModal.style.display = "none";
+    }
+    }
+}
 
 function updatePresentlocation(){
-    let present_location = window.prompt("Update Present Location")
-    console.log(present_location)
+    let present_location = document.getElementById('updateloc').value;
     
     let parcel_url = window.location.href
     let url = new URL(parcel_url)
     let order_id = url.searchParams.get("order_id")
-        console.log(order_id);
         
     const data = {"present_location": present_location};
     
@@ -168,15 +203,15 @@ function updatePresentlocation(){
             'Authorization': `Bearer ${localStorage.getItem('token')}`,
         },
         cache: 'no-cache',
-        // body: JSON.stringify(data)
+        body: JSON.stringify(data)
     
         })
         .then((res) => res.json())
         .then(result => {
-            alert(JSON.stringify(result));
+            alert(JSON.stringify(result))
             if(result.status === 'Message'){
-                document.getElementById('loc').innerHTML = present_location
                 alert(result.message)
+                location.reload();
     
             }
             else{

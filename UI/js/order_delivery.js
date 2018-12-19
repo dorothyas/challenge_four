@@ -24,11 +24,10 @@ function createOrder(){
         .then(result => { 
             alert(JSON.stringify(result))
 
-            if (result.message === 'Order added'){
+            if (result.message = 'Order added'){
                 window.location.href = 'user_profile.html';
-                alert(result.message);    
             } else {
-                alert(message);
+                window.location.href = 'order_delivery.html';
             }
             
         })

@@ -18,7 +18,6 @@ const url = 'http://127.0.0.1:5000/api/v1/users/parcels'
         })
         .then((res) => res.json())
         .then(function(data){
-            // alert(JSON.stringify(data));   
         let i = 0;
         let table = '<table border="2px">'+
                     '<tr>'+
@@ -71,7 +70,6 @@ if(/user_update.html/.test(window.location.href)){
             }})
                 .then((res) => res.json())
                 .then(function(data){
-                    alert(JSON.stringify(data));
 
                 let i = 0;
 
@@ -95,8 +93,8 @@ if(/user_update.html/.test(window.location.href)){
                             +"</td><td>"+data["Orders"][0]["weight"]
                             +"</td><td>"+data["Orders"][0]["receiver"]
                             +"</td><td>"+data["Orders"][0]["pick_up"]
-                            +"</td><td><a href = '#' onclick= 'updateDestination()' id= 'loc'>"+data["Orders"][0]["destination"]
-                            +"</td><td><a href ='#' onclick='cancelStatus()' id='stat'>"+data["Orders"][0]["status"]
+                            +"</td><td><a href = '#' onclick= 'makeModal()' id='dest'>"+data["Orders"][0]["destination"]
+                            +"</td><td><a href ='#' onclick='getModal()' id='stat'>"+data["Orders"][0]["status"]
                             +"</td><td>"+data["Orders"][0]["present_location"]
                             +"</td><td>"+data["Orders"][0]["user_id"]
                             +"</td></tr>";
@@ -107,20 +105,36 @@ if(/user_update.html/.test(window.location.href)){
                       
                        });
                        
-  
-  }
 
+  }
+function getModal(){
+    let modal =document.getElementById('myModal');
+    let btn = document.getElementById("stat");
+    let span = document.getElementsByClassName("close")[0];
+    
+    btn.onclick = function() {
+    modal.style.display = "block";
+    }
+
+    span.onclick = function() {
+    modal.style.display = "none";
+    }
+
+    window.onclick = function(event) {
+    if (event.target == modal) {
+        modal.style.display = "none";
+    }
+    }
+}
 
 function cancelStatus(){
-let status = window.prompt("Update Status")
-console.log(status)
+    let status = document.getElementById('cancelStat').value;
 
-let parcel_url = window.location.href
-let url = new URL(parcel_url)
-let order_id = url.searchParams.get("order_id")
-    console.log(order_id);
-    
-const data = {"status": status};
+    let parcel_url = window.location.href
+    let url = new URL(parcel_url)
+    let order_id = url.searchParams.get("order_id")
+        
+    const data = {"status": status};
 
     fetch('http://127.0.0.1:5000/api/v1/parcels/'+order_id+'/status', {
     method: 'PUT',
@@ -133,57 +147,69 @@ const data = {"status": status};
     body: JSON.stringify(data)
 
     })
-    .then((res) => res.json())
-    .then(result => {
-        alert(JSON.stringify(result));
-        if(result.status === 'message'){
-            document.getElementById('stat').innerHTML = status
-            alert(result.message)
-
-        }
-        else{
-            alert(result.message)
-        }
-        
-    })
-
-    }
-    function updateDestination(){
-        let destination = window.prompt("Update Status")
-        console.log(destination)
-        
-        let parcel_url = window.location.href
-        let url = new URL(parcel_url)
-        let order_id = url.searchParams.get("order_id")
-            console.log(order_id);
-            
-        const data = {"destination": destination};
-        
-            fetch('http://127.0.0.1:5000/api/v1/parcels/'+order_id+'/destination', {
-            method: 'PUT',
-            headers: {
-                'Accept': 'application/json',
-                'Content-type': 'application/json',
-                'Authorization': `Bearer ${localStorage.getItem('token')}`,
-            },
-            cache: 'no-cache',
-            body: JSON.stringify(data)
-        
-            })
-            .then((res) => res.json())
-            .then(result => {
-                alert(JSON.stringify(result));
-                if(result.status === 'message'){
-                    document.getElementById('stat').innerHTML = destination
-                    alert(result.message)
-        
-                }
-                else{
-                    alert(result.message)
-                }
-                
-            })
-        
-        
+        .then((res) => res.json())
+        .then(result => {
+            if(result.status === 'Message'){
+                alert(result.message)
             }
+            else{
+                alert(result.message)
+            }
+            
+        })
+
+        }
+
+function makeModal(){
+    let newModal =document.getElementById('myNewModal');
+    let bttn = document.getElementById("dest");
+    let span = document.getElementsByClassName("close")[0];
+
+
+    bttn.onclick = function() {
+    newModal.style.display = "block";
+    }
+    span.onclick = function() {
+    newModal.style.display = "none";
+}
+
+    window.onclick = function(event) {
+    if (event.target == newModal) {
+        newModal.style.display = "none";
+    }
+    }
+}
+function updateDestination(){
+    let destination = document.getElementById('updateDest').value;
+    
+    let parcel_url = window.location.href
+    let url = new URL(parcel_url)
+    let order_id = url.searchParams.get("order_id")
         
+    const data = {"destination": destination};
+    
+        fetch('http://127.0.0.1:5000/api/v1/parcels/'+order_id+'/destination', {
+        method: 'PUT',
+        headers: {
+            'Accept': 'application/json',
+            'Content-type': 'application/json',
+            'Authorization': `Bearer ${localStorage.getItem('token')}`,
+        },
+        cache: 'no-cache',
+        body: JSON.stringify(data)
+    
+        })
+        .then((res) => res.json())
+        .then(result => {
+            if(result.status === 'message'){
+                alert(result.message)
+            }
+            else{
+                alert(result.message)
+            }
+            
+        })
+    
+    
+        }
+    
